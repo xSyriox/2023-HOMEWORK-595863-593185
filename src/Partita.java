@@ -17,17 +17,33 @@ public class Partita {
 	private Labirinto labirinto;
 	private boolean finita;
 	private int cfu;
+	private Giocatore giocatore;
 	
 	public Partita(){
 		this.labirinto=new Labirinto();
 		this.stanzaCorrente=labirinto.getEntrata();
 		this.finita = false;
 		this.cfu = CFU_INIZIALI;
+		this.giocatore=new Giocatore();
 		
 	}
 
   
 	
+
+	public Giocatore getGiocatore() {
+		return giocatore;
+	}
+
+
+
+
+	public void setGiocatore(Giocatore giocatore) {
+		this.giocatore = giocatore;
+	}
+
+
+
 
 	public Stanza getStanzaVincente() {
 		return this.labirinto.getUscita();

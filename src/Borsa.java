@@ -26,6 +26,14 @@ public class Borsa {
 	return true;
 	}
 	
+	public int getNumeroAttrezzi() {
+		return numeroAttrezzi;
+	}
+
+	public void setNumeroAttrezzi(int numeroAttrezzi) {
+		this.numeroAttrezzi = numeroAttrezzi;
+	}
+
 	public int getPesoMax() {
 	return pesoMax;}
 	
