@@ -1,4 +1,7 @@
-
+package it.uniroma3.diadia;
+import it.uniroma3.diadia.ambienti.*;
+import it.uniroma3.diadia.attrezzi.*;
+import it.uniroma3.diadia.giocatore.*;
 
 import java.util.Scanner;
 
@@ -64,12 +67,13 @@ public class DiaDia {
 			this.vai(comandoDaEseguire.getParametro());
 		else if (nomeComando.equals("aiuto"))
 			this.aiuto();
-		else if(nomeComando.equals("prendi")) {
+		else if(nomeComando.equals("prendi") && comandoDaEseguire.getParametro()!=null) {
 			this.prendi(comandoDaEseguire.getParametro());
 		}
-		else if(nomeComando.equals("posa")) {
+		else if(nomeComando.equals("posa") && comandoDaEseguire.getParametro()!=null) {
 			this.posa(comandoDaEseguire.getParametro());
 		}
+		
 		
 		else
 			System.out.println("Comando sconosciuto");
