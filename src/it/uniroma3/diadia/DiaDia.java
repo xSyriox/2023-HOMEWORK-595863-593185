@@ -132,7 +132,7 @@ public class DiaDia {
 		
 		if(stanzaCorrente.hasAttrezzo(nomeAttrezzo) && borsa.getPeso()<borsa.getPesoMax()){
 			Attrezzo item=stanzaCorrente.getAttrezzo(nomeAttrezzo);
-			stanzaCorrente.removeAttrezzo(nomeAttrezzo);
+			stanzaCorrente.removeAttrezzo(item);
 			borsa.addAttrezzo(item);	
 		}
 		else if(!stanzaCorrente.hasAttrezzo(nomeAttrezzo) && borsa.getPeso()>borsa.getPesoMax()){

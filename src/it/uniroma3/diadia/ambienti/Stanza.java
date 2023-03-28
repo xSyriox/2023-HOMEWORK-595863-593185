@@ -181,7 +181,7 @@ public class Stanza {
 	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
 	 */
 	public boolean removeAttrezzo(Attrezzo attrezzo) {
-		if(!this.hasAttrezzo(attrezzo.getNome())) {
+		if(this.hasAttrezzo(attrezzo.getNome())) {
 			for(int i=0; i<numeroAttrezzi; i++) {
 				if(attrezzi[i].equals(attrezzo)) {
 					attrezzi[i]=attrezzi[numeroAttrezzi-1];
@@ -193,19 +193,19 @@ public class Stanza {
 	}
 		return false;
 	}
-	public boolean removeAttrezzo(String attrezzo) {
-		if(this.hasAttrezzo(attrezzo)){
-			for(int i=0; i<numeroAttrezzi; i++) {
-				if(attrezzi[i].getNome().equals(attrezzo)) {
-					attrezzi[i]=attrezzi[numeroAttrezzi-1];
-					attrezzi[numeroAttrezzi-1]=null;
-					numeroAttrezzi--;
-					return true;
-				}
-			}		
-		}
-		return false;
-	}
+//	public boolean removeAttrezzo(String attrezzo) {
+//		if(this.hasAttrezzo(attrezzo)){
+//			for(int i=0; i<numeroAttrezzi; i++) {
+//				if(attrezzi[i].getNome().equals(attrezzo)) {
+//					attrezzi[i]=attrezzi[numeroAttrezzi-1];
+//					attrezzi[numeroAttrezzi-1]=null;
+//					numeroAttrezzi--;
+//					return true;
+//				}
+//			}		
+//		}
+//		return false;
+//	}
 	
 
 
