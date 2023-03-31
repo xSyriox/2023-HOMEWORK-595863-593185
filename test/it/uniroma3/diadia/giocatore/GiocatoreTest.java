@@ -6,13 +6,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class GiocatoreTest {
+	static final private int CFU_INIZIALI = 20;
 	private Giocatore giocatore;
 	private Borsa borsa;
+	private int cfu;
 
 	@BeforeEach
 	public void setUp() {
 		this.giocatore=new Giocatore();
 		this.borsa=new Borsa();
+		this.giocatore.setCfu(10);
+		
 	}
 
 
@@ -30,12 +34,14 @@ class GiocatoreTest {
 
 	@Test
 	void testGetCfu() {
-		fail("Not yet implemented");
+		
+		assertTrue(this.giocatore.getCfu()==(10));
 	}
 
 	@Test
 	void testSetCfu() {
-		fail("Not yet implemented");
+		this.giocatore.setCfu(20);
+		assertTrue(this.giocatore.getCfu()==20);
 	}
 
 }

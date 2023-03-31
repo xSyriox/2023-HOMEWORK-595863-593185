@@ -8,37 +8,35 @@ import org.junit.jupiter.api.Test;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 
-class PartitaTest {
-	private Stanza atrio;
-	private Stanza stanzaCorrente;
+class PartitaTest {	
 	private Labirinto labirinto;	
-	private int cfu;
+	private Partita partita;
+
+	
+	private Stanza stanzavincente;
+	
 
 	@BeforeEach
-	public void setUp() {		
-		this.atrio=new Stanza("atrio");
-		this.stanzaCorrente=new Stanza("stanza corrente");
-		this.labirinto=new Labirinto();
-		this.labirinto.setUscita(atrio);
-		this.cfu=10;
-	}
-
-	@Test
-	void testGetStanzaVincente() {
-		assertSame(this.atrio,this.labirinto.getUscita());
-	}
-
-	@Test
-	void testgetCfu() {
-		assertSame(this.cfu, 10);		
+	public void setUp() {
+		this.partita=new Partita();
+		this.stanzavincente=new Stanza("biblioteca");
+		this.partita.getLabirinto().setUscita(stanzavincente);
+		this.partita.setStanzaCorrente(stanzavincente);		
+		
+		
 		
 	}
+
+	@Test
+	void testgetStanzaVincente() {
+		assertSame(this.stanzavincente, this.partita.getStanzaVincente());
+	}
+
+	
 
 	@Test
 	void testVinta() {
-		this.stanzaCorrente=atrio;
-		assertSame(this.stanzaCorrente, this.labirinto.getUscita());
-		
+		assertTrue(partita.vinta());
 	}
 
 }
