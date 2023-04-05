@@ -33,6 +33,7 @@ class StanzaTest {
 	@Test
 	void testHasAttrezzo() {
 		assertFalse(this.vuota.hasAttrezzo("libro"));
+		assertTrue(this.nonVuota.hasAttrezzo("osso"));
 	}
 
 	@Test
