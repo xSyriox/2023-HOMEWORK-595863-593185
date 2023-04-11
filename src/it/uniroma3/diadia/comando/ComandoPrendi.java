@@ -7,7 +7,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.Borsa;
 
 public class ComandoPrendi implements Comando {
-	private IOConsole ioconsole;
+	
 	private String nomeAttrezzo;
 	
 	@Override
@@ -17,7 +17,7 @@ public class ComandoPrendi implements Comando {
 	
 	@Override
 	public void esegui(Partita partita) {
-		
+		 IOConsole ioconsole = partita.getIoconsole();
 		 Borsa borsa =partita.getGiocatore().getBorsa();
          Stanza stanzaCorrente =partita.getStanzaCorrente();
          

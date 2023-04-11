@@ -6,10 +6,11 @@ import it.uniroma3.diadia.ambienti.Stanza;
 
 public class ComandoVai implements Comando{
 	private String direzione;
-	private IOConsole ioconsole;
+	
 	
 	@Override
 	public void esegui(Partita partita) {
+		IOConsole ioconsole = partita.getIoconsole();
 		Stanza stanzaCorrente=partita.getStanzaCorrente();
 		Stanza prossimaStanza=null;
 		if(this.direzione==null) {

@@ -18,6 +18,7 @@ public class Partita {
 	private Stanza stanzaCorrente;
 	private Labirinto labirinto;
 	private boolean finita;
+	private IOConsole ioconsole;
 	
 	private Giocatore giocatore;
 	
@@ -25,18 +26,27 @@ public class Partita {
 		this.labirinto=new Labirinto();
 		this.stanzaCorrente=labirinto.getEntrata();
 		this.finita = false;
+		this.ioconsole=new IOConsole();
 		
 		this.giocatore=new Giocatore();
 		
 	}
 	
+	public IOConsole getIoconsole() {
+		return this.ioconsole;
+	}
+
+	public void setIoconsole(IOConsole ioconsole) {
+		this.ioconsole = ioconsole;
+	}
+
 	public Labirinto getLabirinto() {
-		return labirinto;
+		return this.labirinto;
 	}
 
 
 	public Giocatore getGiocatore() {
-		return giocatore;
+		return this.giocatore;
 	}
 
 

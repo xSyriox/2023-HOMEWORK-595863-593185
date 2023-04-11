@@ -30,22 +30,23 @@ public class DiaDia {
                         "o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
                         "Per conoscere le istruzioni usa il comando 'aiuto'.";
 
-        static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa"};
+        static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa","guarda"};
 
         private Partita partita;
-        private IOConsole IOConsole;
+        
 
-        public DiaDia(IOConsole ioconsole) {
+        public DiaDia() {
                 this.partita = new Partita();
-                this.IOConsole= ioconsole;
+                
 
         }
 
         public void gioca() {
                 String istruzione;
-                IOConsole.mostraMessaggio(MESSAGGIO_BENVENUTO);
+                IOConsole ioconsole = partita.getIoconsole();
+                ioconsole.mostraMessaggio(MESSAGGIO_BENVENUTO);
                 do             
-                        istruzione= this.IOConsole.leggiRiga();
+                        istruzione= ioconsole.leggiRiga();
                 while (!processaIstruzione(istruzione));
         }   
 
@@ -76,84 +77,30 @@ public class DiaDia {
          * Stampa informazioni di aiuto.
          */
         private void aiuto() {
+        	IOConsole ioconsole = this.partita.getIoconsole();
                 for(int i=0; i< elencoComandi.length; i++)
-                        IOConsole.mostraMessaggio(elencoComandi[i]+" ");
-                IOConsole.mostraMessaggio("------");
+                        ioconsole.mostraMessaggio(elencoComandi[i]+" ");
+                ioconsole.mostraMessaggio("------");
         }
 
-        /**
-         * Cerca di andare in una direzione. Se c'e' una stanza ci entra
-         * e ne stampa il nome, altrimenti stampa un messaggio di errore
-         */
-        private void vai(String direzione) {
-                if(direzione==null)
-                        IOConsole.mostraMessaggio("Dove vuoi andare ?");
-                Stanza prossimaStanza = null;
-                prossimaStanza = this.partita.getStanzaCorrente().getStanzaAdiacente(direzione);
-                if (prossimaStanza == null)
-                        IOConsole.mostraMessaggio("Direzione inesistente");
-                else {
-                        this.partita.setStanzaCorrente(prossimaStanza);
-                        Giocatore giocatore = this.partita.getGiocatore();
-                        int cfu = giocatore.getCfu();
-                        giocatore.setCfu(cfu--);
-                }
-                IOConsole.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
-        }
+       
+        
 
         /**
          * Comando "Fine".
          */
         private void fine() {
-                IOConsole.mostraMessaggio("Grazie di aver giocato!");  // si desidera smettere
+                this.partita.getIoconsole().mostraMessaggio("Grazie di aver giocato!"); // si desidera smettere
         }
 
-        public void prendi(String nomeAttrezzo) {
-
-                Borsa borsa = this.partita.getGiocatore().getBorsa();
-                Stanza stanzaCorrente = this.partita.getStanzaCorrente();
-
-                if (stanzaCorrente.hasAttrezzo(nomeAttrezzo) && borsa.getPeso() < borsa.getPesoMax()) {
-                        Attrezzo item= stanzaCorrente.getAttrezzo(nomeAttrezzo);
-                        stanzaCorrente.removeAttrezzo(item);
-                        borsa.addAttrezzo(item);
-                        IOConsole.mostraMessaggio("attrezzo raccolto");
-                }
-                else if (borsa.getPeso() >= borsa.getPesoMax() && !stanzaCorrente.hasAttrezzo(nomeAttrezzo)) {
-                        IOConsole.mostraMessaggio("Borsa piena e Attrezzo non presente nella stanza");
-                }
-                else if (borsa.getPeso() >= borsa.getPesoMax()) {
-                        IOConsole.mostraMessaggio("Borsa piena");
-                }
-                else if (!stanzaCorrente.hasAttrezzo(nomeAttrezzo)) {
-                        IOConsole.mostraMessaggio("Attrezzo non presente nella stanza");
-                }
-        }
-
-        public void posa(String nomeAttrezzo) {
-                Borsa borsa = this.partita.getGiocatore().getBorsa();
-                Stanza stanzaCorrente = this.partita.getStanzaCorrente();
-
-                if (borsa.hasAttrezzo(nomeAttrezzo) && stanzaCorrente.getNumeroAttrezzi()< Stanza.getNumeroMassimoAttrezzi()) {
-                        Attrezzo item= borsa.removeAttrezzo(nomeAttrezzo);
-                        stanzaCorrente.addAttrezzo(item);
-                        IOConsole.mostraMessaggio("attrezzo posato");
-                }
-                else if (!borsa.hasAttrezzo(nomeAttrezzo) && stanzaCorrente.getNumeroAttrezzi()>= Stanza.getNumeroMassimoAttrezzi())
-                        IOConsole.mostraMessaggio("Attrezzo non presente in borsa e stanza piena");
-
-                else if (!borsa.hasAttrezzo(nomeAttrezzo))
-                        IOConsole.mostraMessaggio("Attrezzo non presente in borsa");
-
-                else if (stanzaCorrente.getNumeroAttrezzi() >= Stanza.getNumeroMassimoAttrezzi())
-                        IOConsole.mostraMessaggio("stanza piena");
-        }
+        
+        
 
 
 
         public static void main(String[] argc) {
-                IOConsole ioconsole = new IOConsole();
-                DiaDia gioco = new DiaDia(ioconsole);
+                
+                DiaDia gioco = new DiaDia();
                 gioco.gioca();
         }
 }
