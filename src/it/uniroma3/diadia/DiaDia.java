@@ -56,36 +56,19 @@ public class DiaDia {
          * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
          */
         private boolean processaIstruzione(String istruzione) {
-                Comando comandoDaEseguire = new Comando(istruzione);
+        	Comando comandoDaEseguire;
+        	FabbricaDiComandi factory = new FabbricaDiComandiFisarmonica();
+        	comandoDaEseguire = factory.costruisciComando(istruzione);
+        	comandoDaEseguire.esegui(this.partita);
+        	if (this.partita.vinta())
 
-                String nomeComando = comandoDaEseguire.getNome();
-                if (nomeComando== null) {
-                        IOConsole.mostraMessaggio("Comando sconosciuto");
-                }
-                else if (nomeComando.equals("fine")) {
-                        this.fine();
-                        return true;
-                }
-                else if (nomeComando.equals("vai"))
-                        this.vai(comandoDaEseguire.getParametro());
+        	System.out.println("Hai vinto!");
+        	if (!this.partita.giocatoreIsVivo())
 
-                else if (nomeComando.equals("aiuto"))
-                        this.aiuto();
+        	System.out.println("Hai esaurito i CFU...");
 
-                else if (nomeComando.equals("prendi") && comandoDaEseguire.getParametro()!= null)
-                        this.prendi(comandoDaEseguire.getParametro());
-
-                else if (nomeComando.equals("posa") && comandoDaEseguire.getParametro()!= null)
-                        this.posa(comandoDaEseguire.getParametro());
-
-                else
-                        IOConsole.mostraMessaggio("Comando sconosciuto");
-                if (this.partita.vinta()) {
-                        IOConsole.mostraMessaggio("Hai vinto!");
-                        return true;
-                } else
-                        return false;
-        }   
+        	return this.partita.isFinita();
+        	}   
 
         // implementazioni dei comandi dell'utente:
 
