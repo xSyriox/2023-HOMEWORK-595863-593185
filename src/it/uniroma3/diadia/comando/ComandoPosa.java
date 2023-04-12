@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.comando;
 
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
@@ -19,21 +20,21 @@ public class ComandoPosa implements Comando{
 	public void esegui(Partita partita) {
 		Borsa borsa = partita.getGiocatore().getBorsa();
         Stanza stanzaCorrente =partita.getStanzaCorrente();
-        IOConsole ioconsole = partita.getIoconsole();
+        IO io = partita.getIo();
 
         if (borsa.hasAttrezzo(nomeAttrezzo) && stanzaCorrente.getNumeroAttrezzi()< Stanza.getNumeroMassimoAttrezzi()) {
                 Attrezzo item= borsa.removeAttrezzo(nomeAttrezzo);
                 stanzaCorrente.addAttrezzo(item);
-				ioconsole.mostraMessaggio("attrezzo posato");
+                io.mostraMessaggio("attrezzo posato");
         }
         else if (!borsa.hasAttrezzo(nomeAttrezzo) && stanzaCorrente.getNumeroAttrezzi()>= Stanza.getNumeroMassimoAttrezzi())
-                ioconsole.mostraMessaggio("Attrezzo non presente in borsa e stanza piena");
+                io.mostraMessaggio("Attrezzo non presente in borsa e stanza piena");
 
         else if (!borsa.hasAttrezzo(nomeAttrezzo))
-        		ioconsole.mostraMessaggio("Attrezzo non presente in borsa");
+                io.mostraMessaggio("Attrezzo non presente in borsa");
 
         else if (stanzaCorrente.getNumeroAttrezzi() >= Stanza.getNumeroMassimoAttrezzi())
-        		ioconsole.mostraMessaggio("stanza piena");
+                io.mostraMessaggio("stanza piena");
 	}
 	
 

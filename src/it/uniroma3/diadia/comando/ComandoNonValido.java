@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.comando;
 
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
 public class ComandoNonValido implements Comando{
@@ -11,7 +12,9 @@ public class ComandoNonValido implements Comando{
 	}
 	
 	public void esegui(Partita partita) {
+		IO io = partita.getIo();
 		this.comando=null;
+		io.mostraMessaggio("Comando non disponibile. Scrivere aiuto per vedere la lista dei comandi disponibili.");
 		return;
 	}
 	

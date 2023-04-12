@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.comando;
 
-
+import it.uniroma3.diadia.IO;
+import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 
 public class ComandoGuarda implements Comando { 
@@ -13,6 +14,7 @@ public class ComandoGuarda implements Comando {
 	
 	@Override
 	public void esegui(Partita partita) {
-		partita.getIoconsole().mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
+		IO io = partita.getIo();
+		io.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
 	}
 }

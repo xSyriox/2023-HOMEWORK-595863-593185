@@ -1,8 +1,11 @@
 package it.uniroma3.diadia;
 import it.uniroma3.diadia.ambienti.*;
 import it.uniroma3.diadia.attrezzi.*;
+import it.uniroma3.diadia.comandi.*;
+import it.uniroma3.diadia.comando.Comando;
+import it.uniroma3.diadia.comando.FabbricaDiComandi;
+import it.uniroma3.diadia.comando.FabbricaDiComandiFisarmonica;
 import it.uniroma3.diadia.giocatore.*;
-import it.uniroma3.diadia.comando.*;
 
 
 
@@ -30,23 +33,22 @@ public class DiaDia {
                         "o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
                         "Per conoscere le istruzioni usa il comando 'aiuto'.";
 
-        static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa","guarda"};
+        static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa"};
 
         private Partita partita;
-        
+        private IO io;
 
-        public DiaDia() {
-                this.partita = new Partita();
-                
+        public DiaDia(IO ioconsole) {
+        	this.io= ioconsole;
+            this.partita = new Partita(this.io);
 
         }
 
         public void gioca() {
                 String istruzione;
-                IOConsole ioconsole = partita.getIoconsole();
-                ioconsole.mostraMessaggio(MESSAGGIO_BENVENUTO);
+                io.mostraMessaggio(MESSAGGIO_BENVENUTO);
                 do             
-                        istruzione= ioconsole.leggiRiga();
+                        istruzione= this.io.leggiRiga();
                 while (!processaIstruzione(istruzione));
         }   
 
@@ -71,36 +73,13 @@ public class DiaDia {
         	return this.partita.isFinita();
         	}   
 
-        // implementazioni dei comandi dell'utente:
-
-        /**
-         * Stampa informazioni di aiuto.
-         */
-        private void aiuto() {
-        	IOConsole ioconsole = this.partita.getIoconsole();
-                for(int i=0; i< elencoComandi.length; i++)
-                        ioconsole.mostraMessaggio(elencoComandi[i]+" ");
-                ioconsole.mostraMessaggio("------");
-        }
-
-       
-        
-
-        /**
-         * Comando "Fine".
-         */
-        private void fine() {
-                this.partita.getIoconsole().mostraMessaggio("Grazie di aver giocato!"); // si desidera smettere
-        }
-
-        
         
 
 
 
         public static void main(String[] argc) {
-                
-                DiaDia gioco = new DiaDia();
+                IO io = new IOConsole();
+                DiaDia gioco = new DiaDia(io);
                 gioco.gioca();
         }
 }
