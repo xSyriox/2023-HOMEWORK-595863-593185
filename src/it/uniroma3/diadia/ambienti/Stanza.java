@@ -19,8 +19,8 @@ public class Stanza {
 	static final private int NUMERO_MASSIMO_ATTREZZI = 10;
 	
 	private String nome;
-    private Attrezzo[] attrezzi;
-    private int numeroAttrezzi;
+    protected Attrezzo[] attrezzi;
+    protected int numeroAttrezzi;
     private Stanza[] stanzeAdiacenti;
     private int numeroStanzeAdiacenti;
 	private String[] direzioni;
@@ -136,13 +136,16 @@ public class Stanza {
     	for (String direzione : this.direzioni)
     		if (direzione!=null)
     			risultato.append(" " + direzione);
-    	risultato.append("\nAttrezzi nella stanza: ");
-    	
+    	if(this.isVuota()) {
+    		risultato.append("\nNessun attrezzo presente nella stanza.");
+    	}
+    	else {
+    	risultato.append("\nAttrezzi nella stanza: ");    	
     	for (Attrezzo attrezzo : this.attrezzi) {
     		if(attrezzo!=null) {
     		risultato.append(attrezzo.toString()+" ");}
     	
-    	}
+    	}}    	
     	return risultato.toString();
     }
 
@@ -216,5 +219,10 @@ public class Stanza {
 	    	direzioni[i] = this.direzioni[i];
 	    return direzioni;
     }
+	
+	public boolean isVuota() {
+		if (this.numeroAttrezzi>0) return false;
+		else return true;		
+	}
 
 }

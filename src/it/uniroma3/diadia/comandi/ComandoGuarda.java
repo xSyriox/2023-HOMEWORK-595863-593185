@@ -16,5 +16,7 @@ public class ComandoGuarda implements Comando {
 	public void esegui(Partita partita) {
 		IO io = partita.getIo();
 		io.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
+		io.mostraMessaggio("\nCFU rimasti: "+partita.getGiocatore().getCfu());
+		
 	}
 }

@@ -24,7 +24,7 @@ public class ComandoPrendi implements Comando {
          IO io = partita.getIo();
          
          
-         if (stanzaCorrente.hasAttrezzo(nomeAttrezzo) && borsa.getPeso() < borsa.getPesoMax()) {
+         if (stanzaCorrente.hasAttrezzo(nomeAttrezzo) && borsa.getPeso()+stanzaCorrente.getAttrezzo(nomeAttrezzo).getPeso() <= borsa.getPesoMax()) {
              Attrezzo item= stanzaCorrente.getAttrezzo(nomeAttrezzo);
              stanzaCorrente.removeAttrezzo(item);
              borsa.addAttrezzo(item);
@@ -33,9 +33,12 @@ public class ComandoPrendi implements Comando {
      else if (borsa.getPeso() >= borsa.getPesoMax() && !stanzaCorrente.hasAttrezzo(nomeAttrezzo)) {
              io.mostraMessaggio("Borsa piena e Attrezzo non presente nella stanza");
      	}
-     else if (borsa.getPeso() >= borsa.getPesoMax()) {
+     else if (borsa.getPeso()>= borsa.getPesoMax()) {
              io.mostraMessaggio("Borsa piena");
      	}
+     else if (borsa.getPeso()+stanzaCorrente.getAttrezzo(nomeAttrezzo).getPeso() > borsa.getPesoMax()) {
+         io.mostraMessaggio("Non hai abbastanza spazio nella borsa");
+ 	}
      else if (!stanzaCorrente.hasAttrezzo(nomeAttrezzo)) {
              io.mostraMessaggio("Attrezzo non presente nella stanza");
      	}
