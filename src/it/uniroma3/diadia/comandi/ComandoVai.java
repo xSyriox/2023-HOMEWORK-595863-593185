@@ -17,7 +17,7 @@ public class ComandoVai implements Comando{
 		IO io = partita.getIo();
 		
 		if(this.direzione==null) {
-			io.mostraMessaggio("Dove vuoi andare? /n Devi specificare una direzione");
+			io.mostraMessaggio("Dove vuoi andare? \nDevi specificare una direzione (nord-sud-est-ovest)");
 			return;			
 		}
 		prossimaStanza=stanzaCorrente.getStanzaAdiacente(this.direzione);
@@ -27,7 +27,7 @@ public class ComandoVai implements Comando{
 		}
 		
 		partita.setStanzaCorrente(prossimaStanza);
-		io.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
+		io.mostraMessaggio(partita.getStanzaCorrente().getNome());
 		partita.getGiocatore().setCfu(partita.getGiocatore().getCfu()-1);
 	}
 	@Override

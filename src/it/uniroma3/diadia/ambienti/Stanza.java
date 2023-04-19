@@ -137,7 +137,7 @@ public class Stanza {
     		if (direzione!=null)
     			risultato.append(" " + direzione);
     	if(this.isVuota()) {
-    		risultato.append("\nNessun attrezzo presente nella stanza.");
+    		risultato.append("\nAttrezzi nella stanza: nessuno");
     	}
     	else {
     	risultato.append("\nAttrezzi nella stanza: ");    	
