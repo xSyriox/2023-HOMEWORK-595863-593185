@@ -1,4 +1,13 @@
 package it.uniroma3.diadia.ambienti;
+
+
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import it.uniroma3.diadia.attrezzi.*;
 
 
@@ -19,11 +28,11 @@ public class Stanza {
 	static final private int NUMERO_MASSIMO_ATTREZZI = 10;
 	
 	private String nome;
-    protected Attrezzo[] attrezzi;
+    protected Set<Attrezzo> attrezzi;
     protected int numeroAttrezzi;
-    private Stanza[] stanzeAdiacenti;
+    private List<Stanza> stanzeAdiacenti;
     private int numeroStanzeAdiacenti;
-	private String[] direzioni;
+	private List<String> direzioni;
     
     public int getNumeroAttrezzi() {
 		return numeroAttrezzi;
@@ -45,9 +54,9 @@ public class Stanza {
         this.nome = nome;
         this.numeroStanzeAdiacenti = 0;
         this.numeroAttrezzi = 0;
-        this.direzioni = new String[NUMERO_MASSIMO_DIREZIONI];
-        this.stanzeAdiacenti = new Stanza[NUMERO_MASSIMO_DIREZIONI];
-        this.attrezzi = new Attrezzo[NUMERO_MASSIMO_ATTREZZI];
+        this.direzioni = new ArrayList<>(4);
+        this.stanzeAdiacenti = new ArrayList<>();
+        this.attrezzi = new HashSet<>();
     }
 
     /**
@@ -58,15 +67,20 @@ public class Stanza {
      */
     public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
         boolean aggiornato = false;
-    	for(int i=0; i<this.direzioni.length; i++)
-        	if (direzione.equals(this.direzioni[i])) {
-        		this.stanzeAdiacenti[i] = stanza;
-        		aggiornato = true;
-        	}
+        Iterator<String> iteratore= this.direzioni.iterator();
+        while (iteratore.hasNext()) {
+			String elem = (String) iteratore.next();
+			if(elem.equals(direzione)) {
+				this.stanzeAdiacenti.add(stanza);
+				aggiornato= true;
+			}
+			
+		}
+    	
     	if (!aggiornato)
-    		if (this.numeroStanzeAdiacenti < NUMERO_MASSIMO_DIREZIONI) {
-    			this.direzioni[numeroStanzeAdiacenti] = direzione;
-    			this.stanzeAdiacenti[numeroStanzeAdiacenti] = stanza;
+    		if (this.stanzeAdiacenti.size() < NUMERO_MASSIMO_DIREZIONI) {
+    			this.direzioni.add(numeroStanzeAdiacenti, direzione); 
+    			this.stanzeAdiacenti.add(numeroStanzeAdiacenti, stanza);
     		    this.numeroStanzeAdiacenti++;
     		}
     }
@@ -77,10 +91,18 @@ public class Stanza {
      */
 	public Stanza getStanzaAdiacente(String direzione) {
         Stanza stanza = null;
-		for(int i=0; i<this.numeroStanzeAdiacenti; i++)
-        	if (this.direzioni[i].equals(direzione))
-        		stanza = this.stanzeAdiacenti[i];
-        return stanza;
+        Iterator<Stanza> iteratore= this.stanzeAdiacenti.iterator();
+        int contatore=0;
+        while (iteratore.hasNext()) {
+			Stanza elem = (Stanza) iteratore.next();			
+			if(this.direzioni.get(contatore).equals(direzione)) {
+				stanza=elem;
+				return stanza;
+			}
+			contatore++;			
+		}       
+		
+        return null;
 	}
 
     /**

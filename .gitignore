@@ -1,1 +1,3 @@
 /bin/
+src/it/uniroma3/diadia/IOSimulator.java
+test/it/uniroma3/diadia/IOSimulatorTest.java
